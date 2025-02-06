@@ -1,0 +1,351 @@
+# NFL Martech Journey Migration Portal (v2 PRD)
+
+## 1. Project Overview
+**Objective**: Build an internal tool for NFL marketing teams to accelerate AEP journey deployment between environments  
+**Primary User**: NFL Marketing Operations Specialists  
+**Core Capabilities**:
+- Browse pre-configured AEP journey templates
+- Deploy journeys between AEP environments via API
+- Simple UI adhering to NFL brand standards
+
+## 2. Technical Stack & Dependencies
+```json
+{
+  "dependencies": {
+    "@mui/material": "^5.x",
+    "@mui/icons-material": "^5.x",
+    "react": "^18.x",
+    "react-dom": "^18.x",
+    "react-router-dom": "^6.x",
+    "typescript": "^4.x"
+  }
+}
+```
+
+## 3. Page Structure & Routing
+```typescript
+// App.tsx Routes
+<Routes>
+  <Route path="/" element={<LandingPage />} />
+  <Route path="/journeys" element={<JourneyListPage />} />
+  <Route path="/journeys/:id" element={<JourneyDetailsPage />} />
+  <Route path="/journeys/:id/deploy" element={<DeploymentFormPage />} />
+  <Route path="/confirmation" element={<ConfirmationPage />} />
+</Routes>
+```
+
+## 4. Branding & Theme Configuration
+```typescript
+// Theme Configuration (src/theme/nflTheme.ts)
+{
+  palette: {
+    primary: {
+      main: '#013369',  // NFL Navy
+      light: '#1B4B8A',
+      dark: '#012447',
+    },
+    secondary: {
+      main: '#D50A0A',  // NFL Red
+      light: '#E33939',
+      dark: '#A30808',
+    },
+    grey: {
+      500: '#A5ACAF',  // NFL Silver
+    }
+  },
+  typography: {
+    fontFamily: '"Helvetica Neue", Arial, sans-serif'
+  }
+}
+```
+
+## 5. Asset Configuration
+### 5.1 Logo
+```typescript
+// NFL Logo Configuration
+{
+  src: "https://static.www.nfl.com/image/upload/v1554321393/league/nvfr7ogywskqrfaiu38m.svg",
+  style: {
+    height: 40,
+    filter: 'brightness(0) invert(1)'  // For white version on dark backgrounds
+  }
+}
+```
+
+### 5.2 Placeholder Images
+Use reliable placeholder service for development:
+```typescript
+const imageUrl = 'https://picsum.photos/seed/${uniqueSeed}/800/400';
+// Example seeds: nfl1, nfl2, nfl3, etc.
+```
+
+## 6. Page-Specific Requirements
+
+### 6.1 Landing Page
+- Hero section with navy background
+- Three feature cards with images
+- Call-to-action button leading to journey list
+
+### 6.2 Journey List Page
+- Search bar with icon
+- Filter button (UI-only for v1)
+- Grid of journey cards (3 columns on desktop)
+- Status chips with color indicators
+
+### 6.3 Journey Details Page
+- Header with deploy button
+- Journey flow visualization using stepper
+- Configuration details in grid layout
+- Preview image panel
+
+### 6.4 Deployment Form Page
+- Three-step wizard interface
+- Environment selection dropdowns
+- Configuration form fields
+- Review summary before deployment
+
+### 6.5 Confirmation Page
+- Success/failure states
+- Deployment details list
+- Action buttons for next steps
+
+## 7. Mock Data Structure
+```typescript
+// Journey Template Structure
+interface JourneyTemplate {
+  id: string;
+  title: string;
+  description: string;
+  thumbnail: string;
+  category: string;
+  status: 'Active' | 'Inactive';
+}
+
+// Journey Details Structure
+interface JourneyDetails extends JourneyTemplate {
+  steps: string[];
+  configuration: {
+    duration: string;
+    audience: string;
+    triggers: string;
+    channels: string[];
+  };
+}
+
+// Mock Journey Templates Data
+const journeyTemplates = [
+    {
+        id: 'nfl-bday-2024',
+        title: 'Fan Birthday Journey',
+        description: 'Automated birthday celebration campaign for NFL fans',
+        thumbnail: 'https://picsum.photos/seed/nfl1/800/400',
+        category: 'Fan Engagement',
+        status: 'Active'
+    },
+    {
+        id: 'gameday-reminder',
+        title: 'Gameday Reminder',
+        description: 'Pre-game notifications and content delivery',
+        thumbnail: 'https://picsum.photos/seed/nfl2/800/400',
+        category: 'Game Operations',
+        status: 'Active'
+    },
+    {
+        id: 'super-bowl-campaign',
+        title: 'Super Bowl Campaign',
+        description: 'Exclusive Super Bowl content and promotions',
+        thumbnail: 'https://picsum.photos/seed/nfl3/800/400',
+        category: 'Events',
+        status: 'Active'
+    },
+    {
+        id: 'season-ticket-renewal',
+        title: 'Season Ticket Renewal',
+        description: 'Early access and renewal campaign for season ticket holders',
+        thumbnail: 'https://picsum.photos/seed/nfl4/800/400',
+        category: 'Ticketing',
+        status: 'Active'
+    },
+    {
+        id: 'fantasy-football',
+        title: 'Fantasy Football Updates',
+        description: 'Weekly player stats and fantasy football engagement',
+        thumbnail: 'https://picsum.photos/seed/nfl5/800/400',
+        category: 'Fantasy Sports',
+        status: 'Active'
+    },
+    {
+        id: 'team-merchandise',
+        title: 'Team Merchandise',
+        description: 'Personalized team merchandise recommendations',
+        thumbnail: 'https://picsum.photos/seed/nfl6/800/400',
+        category: 'Commerce',
+        status: 'Active'
+    },
+    {
+        id: 'playoff-campaign',
+        title: 'Playoff Campaign',
+        description: 'Playoff game notifications and ticket offers',
+        thumbnail: 'https://picsum.photos/seed/nfl7/800/400',
+        category: 'Events',
+        status: 'Inactive'
+    },
+    {
+        id: 'draft-day',
+        title: 'Draft Day Experience',
+        description: 'NFL Draft day updates and fan engagement',
+        thumbnail: 'https://picsum.photos/seed/nfl8/800/400',
+        category: 'Events',
+        status: 'Active'
+    },
+    {
+        id: 'stadium-experience',
+        title: 'Stadium Experience',
+        description: 'In-stadium fan experience and concessions',
+        thumbnail: 'https://picsum.photos/seed/nfl9/800/400',
+        category: 'Game Operations',
+        status: 'Active'
+    }
+];
+
+// Category Colors
+const categoryColors = {
+    'Fan Engagement': 'primary',
+    'Game Operations': 'secondary',
+    'Events': 'success',
+    'Ticketing': 'info',
+    'Fantasy Sports': 'warning',
+    'Commerce': 'error'
+} as const;
+
+// Mock Journey Details Data
+const journeyDetails = {
+    id: 'nfl-bday-2024',
+    title: 'Fan Birthday Journey',
+    description: 'Automated birthday celebration campaign for NFL fans',
+    thumbnail: 'https://picsum.photos/seed/nfl1/800/400',
+    category: 'Fan Engagement',
+    status: 'Active',
+    steps: [
+        'Birthday Trigger Event',
+        'Team Preference Check',
+        'Personalization Logic',
+        'Special Offer Generation',
+        'Email Notification',
+        'SMS Reminder',
+        'Social Media Integration',
+        'Follow-up Engagement'
+    ],
+    configuration: {
+        duration: '30 days',
+        audience: 'NFL Fan Database',
+        triggers: 'Birthday Date Field',
+        channels: ['Email', 'Push', 'SMS', 'Social'],
+        teamPreferences: true,
+        merchandiseOffers: true,
+        ticketPromotions: true
+    },
+    metrics: {
+        averageEngagement: '68%',
+        conversionRate: '12%',
+        customerSatisfaction: '4.8/5'
+    }
+};
+
+// Environment Configuration
+const environments = [
+    { value: 'dev', label: 'Development', description: 'For testing and development' },
+    { value: 'stage', label: 'Staging', description: 'For UAT and pre-production' },
+    { value: 'prod', label: 'Production', description: 'Live environment' }
+];
+
+// Form Validation Rules
+const validationRules = {
+    segmentationId: {
+        required: true,
+        pattern: /^seg_[a-zA-Z0-9]{8,}$/,
+        message: 'Must start with "seg_" followed by at least 8 alphanumeric characters'
+    },
+    durationDays: {
+        required: true,
+        min: 1,
+        max: 365,
+        message: 'Duration must be between 1 and 365 days'
+    }
+};
+```
+
+## 8. Component Guidelines
+### 8.1 Cards
+```typescript
+// Standard Card Configuration
+<Card sx={{ 
+  height: '100%',
+  borderRadius: 2,
+  boxShadow: '0px 2px 4px rgba(0,0,0,0.1)'
+}}>
+```
+
+### 8.2 Buttons
+```typescript
+// Primary Action Button
+<Button
+  variant="contained"
+  color="secondary"
+  size="large"
+>
+```
+
+### 8.3 Typography
+```typescript
+// Page Title
+<Typography variant="h2" component="h1" gutterBottom>
+
+// Section Title
+<Typography variant="h6" gutterBottom>
+
+// Body Text
+<Typography variant="body1" color="text.secondary">
+```
+
+## 9. Layout Guidelines
+- Use `Container maxWidth="lg"` for page content
+- Standard padding: `sx={{ py: 4 }}`
+- Grid spacing: `spacing={3}` or `spacing={4}`
+- Consistent margins between sections: `mb: 4`
+
+## 10. Error Handling
+- Display error alerts for failed deployments
+- Provide clear error messages in forms
+- Include retry options for failed operations
+
+## 11. Navigation Flow
+1. Landing → Journey List
+2. Journey List → Journey Details
+3. Journey Details → Deployment Form
+4. Deployment Form → Confirmation
+5. Confirmation → Journey List or New Deployment
+
+## 12. Responsive Design
+- Mobile-first approach
+- Grid columns: xs=12, sm=6, md=4
+- Maintain readability on all devices
+- Adjust image sizes for different screens
+
+## 13. Performance Guidelines
+- Lazy load images
+- Use placeholder images during development
+- Implement proper loading states
+- Handle API failures gracefully
+
+## 14. Development Notes
+1. Start with implementing the theme
+2. Create reusable components
+3. Implement page routing
+4. Add mock data
+5. Style components using theme
+6. Test responsive behavior
+7. Add interactions and navigation
+8. Implement form validation
+9. Add error handling
+10. Test user flows 
