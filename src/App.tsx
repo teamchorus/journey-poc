@@ -1,33 +1,62 @@
-import React, { useEffect } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { ThemeProvider, CssBaseline, AppBar, Toolbar, Typography, Box } from '@mui/material';
 import { nflTheme } from './theme/nflTheme';
-import { AppLayout } from './components/Layout/AppLayout';
-import { HomePage } from './pages/HomePage';
-import { JourneyDetailPage } from './pages/JourneyDetailPage';
-import { initMSW } from './mocks/browser';
-import './App.css';
 
-const App: React.FC = () => {
-    useEffect(() => {
-        // Initialize MSW
-        initMSW();
-    }, []);
+// Import pages
+import LandingPage from './pages/LandingPage';
+import JourneyListPage from './pages/JourneyListPage';
+import JourneyDetailsPage from './pages/JourneyDetailsPage';
+import DeploymentFormPage from './pages/DeploymentFormPage';
+import ConfirmationPage from './pages/ConfirmationPage';
 
+function App() {
     return (
         <ThemeProvider theme={nflTheme}>
             <CssBaseline />
-            <BrowserRouter>
-                <AppLayout>
-                    <Routes>
-                        <Route path="/" element={<HomePage />} />
-                        <Route path="/journey/:id" element={<JourneyDetailPage />} />
-                    </Routes>
-                </AppLayout>
-            </BrowserRouter>
+            <Router>
+                <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+                    <AppBar position="sticky">
+                        <Toolbar>
+                            <Box
+                                component="img"
+                                src="/assets/nfl-logo.png"
+                                alt="NFL Logo"
+                                sx={{ height: 40, mr: 2 }}
+                            />
+                            <Typography variant="h6" component="div">
+                                Journey Migration Portal
+                            </Typography>
+                        </Toolbar>
+                    </AppBar>
+
+                    <Box component="main" sx={{ flexGrow: 1 }}>
+                        <Routes>
+                            <Route path="/" element={<LandingPage />} />
+                            <Route path="/journeys" element={<JourneyListPage />} />
+                            <Route path="/journeys/:id" element={<JourneyDetailsPage />} />
+                            <Route path="/journeys/:id/deploy" element={<DeploymentFormPage />} />
+                            <Route path="/confirmation" element={<ConfirmationPage />} />
+                        </Routes>
+                    </Box>
+
+                    <Box
+                        component="footer"
+                        sx={{
+                            py: 3,
+                            px: 2,
+                            mt: 'auto',
+                            backgroundColor: (theme) => theme.palette.grey[100],
+                        }}
+                    >
+                        <Typography variant="body2" color="text.secondary" align="center">
+                            © {new Date().getFullYear()} NFL. All rights reserved.
+                        </Typography>
+                    </Box>
+                </Box>
+            </Router>
         </ThemeProvider>
     );
-};
+}
 
 export default App; 
