@@ -29,7 +29,7 @@ function App() {
                                 }}
                             />
                             <Typography variant="h6" component="div">
-                                Journey Migration Portal
+                                NFL Self Service Portal
                             </Typography>
                         </Toolbar>
                     </AppBar>

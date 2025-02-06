@@ -36,7 +36,7 @@ const LandingPage: React.FC = () => {
             >
                 <Container maxWidth="lg">
                     <Typography variant="h1" component="h1" gutterBottom>
-                        NFL Journey Migration Portal
+                        Faster Journey Deployment
                     </Typography>
                     <Typography variant="h5" component="h2" sx={{ mb: 4 }}>
                         Streamline your marketing journey deployments with our powerful migration tools
