@@ -1,0 +1,297 @@
+{
+    "templates": [
+        {
+            "id": "nfl-bday-2024",
+            "aep_id": "xyz123",
+            "title": "Fan Birthday Journey",
+            "description": "Automated birthday celebration campaign for NFL fans",
+            "thumbnail": "https://via.placeholder.com/800x400/013369/FFFFFF?text=Birthday+Journey",
+            "fields": [
+                {
+                    "id": "segmentation_id",
+                    "label": "Segmentation ID",
+                    "type": "text",
+                    "required": true
+                },
+                {
+                    "id": "duration",
+                    "label": "Duration (days)",
+                    "type": "number",
+                    "required": true,
+                    "min": 1,
+                    "max": 365
+                }
+            ]
+        },
+        {
+            "id": "nfl-gameday-2024",
+            "aep_id": "abc456",
+            "title": "Gameday Experience Journey",
+            "description": "Enhanced matchday communications for ticket holders",
+            "thumbnail": "https://via.placeholder.com/800x400/D50A0A/FFFFFF?text=Gameday+Experience",
+            "fields": [
+                {
+                    "id": "segmentation_id",
+                    "label": "Segmentation ID",
+                    "type": "text",
+                    "required": true
+                },
+                {
+                    "id": "duration",
+                    "label": "Duration (days)",
+                    "type": "number",
+                    "required": true,
+                    "min": 1,
+                    "max": 7
+                }
+            ]
+        },
+        {
+            "id": "nfl-global-gameday-2024",
+            "aep_id": "gbl001",
+            "title": "Global Game Day Experience",
+            "description": "Enhanced matchday communications for international NFL games, including London Games Series and Germany Games",
+            "thumbnail": "https://res.cloudinary.com/nfl-images/image/upload/v1/nfl-int/wembley-stadium-nfl.jpg",
+            "fields": [
+                {
+                    "id": "segmentation_id",
+                    "label": "Fan Segment ID",
+                    "type": "text",
+                    "required": true
+                },
+                {
+                    "id": "duration",
+                    "label": "Campaign Duration (days)",
+                    "type": "number",
+                    "required": true,
+                    "min": 1,
+                    "max": 7
+                },
+                {
+                    "id": "locale",
+                    "label": "Primary Market",
+                    "type": "select",
+                    "required": true,
+                    "options": [
+                        "UK",
+                        "Germany",
+                        "Mexico",
+                        "Brazil",
+                        "China",
+                        "Global"
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "nfl-international-series-2024",
+            "aep_id": "int002",
+            "title": "International Series Journey",
+            "description": "Year-round engagement program for international NFL fans, featuring local events and digital content",
+            "thumbnail": "https://res.cloudinary.com/nfl-images/image/upload/v1/nfl-int/international-series-fans.jpg",
+            "fields": [
+                {
+                    "id": "segmentation_id",
+                    "label": "Market Segment ID",
+                    "type": "text",
+                    "required": true
+                },
+                {
+                    "id": "duration",
+                    "label": "Program Duration (days)",
+                    "type": "number",
+                    "required": true,
+                    "min": 30,
+                    "max": 365
+                },
+                {
+                    "id": "content_type",
+                    "label": "Content Focus",
+                    "type": "select",
+                    "required": true,
+                    "options": [
+                        "Game Broadcasts",
+                        "Fan Events",
+                        "Youth Programs",
+                        "All Content"
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "nfl-global-fan-club-2024",
+            "aep_id": "gfc003",
+            "title": "Global Fan Club Journey",
+            "description": "Dedicated communication stream for official international NFL fan clubs and viewing parties",
+            "thumbnail": "https://res.cloudinary.com/nfl-images/image/upload/v1/nfl-int/global-fan-clubs.jpg",
+            "fields": [
+                {
+                    "id": "segmentation_id",
+                    "label": "Fan Club ID",
+                    "type": "text",
+                    "required": true
+                },
+                {
+                    "id": "duration",
+                    "label": "Season Duration (days)",
+                    "type": "number",
+                    "required": true,
+                    "min": 1,
+                    "max": 365
+                },
+                {
+                    "id": "club_type",
+                    "label": "Club Category",
+                    "type": "select",
+                    "required": true,
+                    "options": [
+                        "Official Club",
+                        "University Club",
+                        "Youth Club",
+                        "Community Club"
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "nfl-superbowl-2024",
+            "aep_id": "sb2024",
+            "title": "Super Bowl LVIII Journey",
+            "description": "Global fan engagement campaign for Super Bowl LVIII in Las Vegas",
+            "thumbnail": "https://static.www.nfl.com/image/private/t_editorial_landscape_12_desktop/league/y2isqgxwqpv8qhmqkqec",
+            "fields": [
+                {
+                    "id": "segmentation_id",
+                    "label": "Fan Segment ID",
+                    "type": "text",
+                    "required": true
+                },
+                {
+                    "id": "duration",
+                    "label": "Campaign Duration (days)",
+                    "type": "number",
+                    "required": true,
+                    "min": 1,
+                    "max": 30
+                },
+                {
+                    "id": "market",
+                    "label": "Target Market",
+                    "type": "select",
+                    "required": true,
+                    "options": [
+                        "Global",
+                        "North America",
+                        "UK & Europe",
+                        "Mexico & LATAM",
+                        "China & APAC"
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "nfl-london-2024",
+            "aep_id": "lon2024",
+            "title": "London Games Series",
+            "description": "Fan engagement for 2024 London Games at Tottenham Hotspur Stadium and Wembley",
+            "thumbnail": "https://static.www.nfl.com/image/private/t_editorial_landscape_12_desktop/league/lqtvvxril3ggmvl9jkb9",
+            "fields": [
+                {
+                    "id": "segmentation_id",
+                    "label": "UK Fan Segment ID",
+                    "type": "text",
+                    "required": true
+                },
+                {
+                    "id": "duration",
+                    "label": "Campaign Duration (days)",
+                    "type": "number",
+                    "required": true,
+                    "min": 1,
+                    "max": 90
+                },
+                {
+                    "id": "venue",
+                    "label": "Stadium Focus",
+                    "type": "select",
+                    "required": true,
+                    "options": [
+                        "Both Venues",
+                        "Tottenham Hotspur Stadium",
+                        "Wembley Stadium"
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "nfl-germany-2024",
+            "aep_id": "ger2024",
+            "title": "Germany Games Series",
+            "description": "Fan engagement campaign for NFL games in Frankfurt and Munich",
+            "thumbnail": "https://static.www.nfl.com/image/private/t_editorial_landscape_12_desktop/league/qpe6qmqwkw1mhbx0qnam",
+            "fields": [
+                {
+                    "id": "segmentation_id",
+                    "label": "German Fan Segment ID",
+                    "type": "text",
+                    "required": true
+                },
+                {
+                    "id": "duration",
+                    "label": "Campaign Duration (days)",
+                    "type": "number",
+                    "required": true,
+                    "min": 1,
+                    "max": 90
+                },
+                {
+                    "id": "city",
+                    "label": "Host City",
+                    "type": "select",
+                    "required": true,
+                    "options": [
+                        "Both Cities",
+                        "Frankfurt",
+                        "Munich"
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "nfl-global-gamepass-2024",
+            "aep_id": "gp2024",
+            "title": "NFL Game Pass International",
+            "description": "Subscription and content engagement campaign for NFL Game Pass International users",
+            "thumbnail": "https://static.www.nfl.com/image/private/t_editorial_landscape_12_desktop/league/nfl-game-pass-hero",
+            "fields": [
+                {
+                    "id": "segmentation_id",
+                    "label": "Subscriber Segment ID",
+                    "type": "text",
+                    "required": true
+                },
+                {
+                    "id": "duration",
+                    "label": "Campaign Duration (days)",
+                    "type": "number",
+                    "required": true,
+                    "min": 1,
+                    "max": 365
+                },
+                {
+                    "id": "content_type",
+                    "label": "Content Focus",
+                    "type": "select",
+                    "required": true,
+                    "options": [
+                        "Live Games",
+                        "Game Replays",
+                        "NFL RedZone",
+                        "NFL Network",
+                        "All Content"
+                    ]
+                }
+            ]
+        }
+    ]
+}

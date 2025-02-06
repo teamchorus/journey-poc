@@ -1,0 +1,126 @@
+# NFL Martech Journey Migration Portal (v1 PRD)
+
+## 1. Project Overview
+**Objective**: Build an internal tool for NFL marketing teams to accelerate AEP journey deployment between environments  
+**Primary User**: NFL Marketing Operations Specialists  
+**Core Capabilities**:
+- Browse pre-configured AEP journey templates
+- Deploy journeys between AEP environments via API
+- Simple UI adhering to NFL brand standards
+
+## 2. Key Objectives
+1. Reduce journey deployment time from days to minutes
+2. Ensure 100% brand compliance with NFL visual guidelines
+3. Create demo-ready system for internal stakeholder reviews
+4. Establish foundation for future enterprise scaling
+
+## 3. User Stories
+**As a Marketer**:
+- I want to view all available journey templates with thumbnails
+- I need to customize deployment parameters (segmentation ID, duration)
+- I must see immediate confirmation of deployment success
+
+**As an Admin**:
+- I require simple JSON configuration for journey templates
+- I need clear error messages for API failures
+- I want environment configuration without code changes
+
+## 4. Technical Requirements
+
+### 4.1 Frontend
+js
+// System Stack
+React 18+ (TypeScript)
+NFL Brand Theme Provider
+AEP API Client Library
+Mock Service Worker (MSW) for JSON simulation
+
+### 4.2 Data Flow
+mermaid
+graph LR
+A[JSON Templates] --> B{Landing Page}
+B --> C[Journey List]
+C --> D[Journey Details]
+D --> E[Deployment Form]
+E --> F[AEP API]
+F --> G[Confirmation]
+
+### 4.3 AEP Integration
+bash
+Required API Endpoints
+POST /export/journey/{id} # Initiate package export
+POST /import/journey # Deploy to target environment
+GET /operation/{id} # Check deployment status
+
+
+### 4.4 NFL Branding
+| Element          | Specification                     |
+|-------------------|-----------------------------------|
+| Primary Colors    | #013369 (Navy), #D50A0A (Red)     |
+| Secondary Colors  | #A5ACAF (Silver), #FFFFFF (White) |
+| Font Stack        | Helvetica Neue, Arial, sans-serif |
+| Logo Placement    | Fixed header (left-aligned)       |
+| Image Standards   | 16:9 aspect ratio, min 1920px    |
+
+## 5. Design Guidelines
+
+### 5.1 Page Layouts
+**Landing Page**:
+```jsx
+<Grid>
+  <BannerCard 
+    image="/nfl/journey-mgmt.jpg"
+    title="Birthday Campaigns"
+    cta="Deploy Journeys →"
+  />
+  {/* ... 3 column layout ... */}
+</Grid>
+```
+
+### 5.2 JSON Configuration
+```json
+// config/journeys.json
+{
+  "templates": [{
+    "id": "nfl-bday-2024",
+    "aep_id": "xyz123",
+    "title": "Fan Birthday Journey",
+    "thumbnail": "/journeys/bday-helmets.jpg",
+    "fields": ["segmentation_id", "duration"]
+  }]
+}
+```
+
+## 6. Assumptions & Dependencies
+1. AEP API credentials and specification to be provided later on
+2. Mock data used for all non-API interactions
+3. No authentication required for v1 demo
+
+
+## 9. Out of Scope (v1)
+- User authentication system
+- Journey version control
+- Audit logging
+- Multi-environment support
+
+## 10. Appendices
+
+### 10.1 Environment Configuration
+```bash
+# .env.production
+REACT_APP_AEP_SOURCE="nfl-prod-2024"
+REACT_APP_AEP_TARGET="nfl-stage-2024"
+REACT_APP_AEP_CLIENT_ID="nfl_migrate_01"
+```
+
+### 10.2 Sample API Payload
+```json
+{
+  "operation": "EXPORT",
+  "journeyId": "nfl-bday-2024",
+  "params": {
+    "segmentationId": "seg-nfl-fans-2024",
+    "durationDays": 30
+  }
+}
+```
