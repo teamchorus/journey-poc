@@ -25,7 +25,7 @@ const journeyDetails = {
     id: 'nfl-bday-2024',
     title: 'Fan Birthday Journey',
     description: 'Automated birthday celebration campaign for NFL fans',
-    thumbnail: '/assets/journeys/bday-helmets.jpg',
+    thumbnail: 'https://picsum.photos/seed/nfl4/800/400',
     category: 'Fan Engagement',
     status: 'Active',
     steps: [

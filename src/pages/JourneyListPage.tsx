@@ -22,7 +22,7 @@ const journeyTemplates = [
         id: 'nfl-bday-2024',
         title: 'Fan Birthday Journey',
         description: 'Automated birthday celebration campaign for NFL fans',
-        thumbnail: '/assets/journeys/bday-helmets.jpg',
+        thumbnail: 'https://picsum.photos/seed/nfl4/800/400',
         category: 'Fan Engagement',
         status: 'Active'
     },
@@ -30,11 +30,18 @@ const journeyTemplates = [
         id: 'gameday-reminder',
         title: 'Gameday Reminder',
         description: 'Pre-game notifications and content delivery',
-        thumbnail: '/assets/journeys/gameday.jpg',
+        thumbnail: 'https://picsum.photos/seed/nfl5/800/400',
         category: 'Game Operations',
         status: 'Active'
     },
-    // Add more templates as needed
+    {
+        id: 'super-bowl-campaign',
+        title: 'Super Bowl Campaign',
+        description: 'Exclusive Super Bowl content and promotions',
+        thumbnail: 'https://picsum.photos/seed/nfl6/800/400',
+        category: 'Events',
+        status: 'Active'
+    }
 ];
 
 const JourneyListPage: React.FC = () => {

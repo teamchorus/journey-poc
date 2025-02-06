@@ -9,17 +9,17 @@ const LandingPage: React.FC = () => {
         {
             title: 'Journey Templates',
             description: 'Access pre-configured AEP journey templates designed for NFL marketing campaigns',
-            image: '/assets/templates.jpg',
+            image: 'https://picsum.photos/seed/nfl1/800/400',
         },
         {
             title: 'Quick Deployment',
             description: 'Deploy journeys between environments in minutes, not days',
-            image: '/assets/deployment.jpg',
+            image: 'https://picsum.photos/seed/nfl2/800/400',
         },
         {
             title: 'Brand Compliance',
             description: '100% compliant with NFL brand guidelines and standards',
-            image: '/assets/brand.jpg',
+            image: 'https://picsum.photos/seed/nfl3/800/400',
         },
     ];
 
