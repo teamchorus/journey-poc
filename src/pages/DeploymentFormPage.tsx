@@ -51,7 +51,7 @@ const DeploymentFormPage: React.FC = () => {
                 description: formData.description || "Journey Deployment",
                 destinationSandbox: {
                     name: "prod",
-                    imsOrgId: "647D9BAC572C95F27F000101@AdobeOrg"
+                    imsOrgId: ""
                 }
             };
 

@@ -5,8 +5,8 @@ import { ImportRequest } from '../types/import';
 const AUTH_URL = 'https://ims-na1.adobelogin.com/ims/token/v3';
 const IMPORT_URL = 'https://platform.adobe.io/data/foundation/exim/packages/import/';
 
-const API_KEY = '285964e9e87f4644b402f2e0ec431e95';
-const ORG_ID = '647D9BAC572C95F27F000101@AdobeOrg';
+const API_KEY = '';
+const ORG_ID = '';
 
 export const getAuthToken = async (): Promise<AuthResponse> => {
     const params = new URLSearchParams({
