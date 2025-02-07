@@ -46,7 +46,7 @@ const DeploymentFormPage: React.FC = () => {
             const authResponse = await getAuthToken();
             
             const importData = {
-                id: "230dfab9ebba4479bb9e7ced69366082",
+                id: "",
                 name: formData.description || "NewDeployment",
                 description: formData.description || "Journey Deployment",
                 destinationSandbox: {

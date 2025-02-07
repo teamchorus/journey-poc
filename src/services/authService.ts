@@ -11,7 +11,7 @@ const ORG_ID = '';
 export const getAuthToken = async (): Promise<AuthResponse> => {
     const params = new URLSearchParams({
         client_id: API_KEY,
-        client_secret: 'p8e-08BYfXd1STcUle_RsVsJmeUXDheL-oJ6',
+        client_secret: '',
         grant_type: 'client_credentials',
         scope: 'openid,AdobeID,read_organizations,additional_info.projectedProductContext,session'
     });
