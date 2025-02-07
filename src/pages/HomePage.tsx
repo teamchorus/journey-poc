@@ -9,14 +9,29 @@ import {
     Container,
     useTheme,
     useMediaQuery,
+    CardContent,
+    CardActionArea
 } from '@mui/material';
 import { JourneyCard } from '../components/Journey/JourneyCard';
-import journeyTemplates from '../config/journeys.json';
+import journeyData from '../config/journeys.json';
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
+import { useNavigate } from 'react-router-dom';
 
 export const HomePage: React.FC = () => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+    const navigate = useNavigate();
+
+    const handleViewAll = () => {
+        navigate('/journeys');
+    };
+
+    const handleJourneyClick = (journeyId: string) => {
+        navigate(`/journeys/${journeyId}`);
+    };
+
+    // Take only the first 3 journeys for the featured section
+    const featuredJourneys = journeyData.journeys.slice(0, 3);
 
     return (
         <Box>
@@ -118,23 +133,35 @@ export const HomePage: React.FC = () => {
                 </Typography>
 
                 <Grid container spacing={4}>
-                    {journeyTemplates.templates.map((template) => (
+                    {journeyData.journeys.map((journey) => (
                         <Grid
                             item
                             xs={12}
                             sm={6}
                             md={4}
-                            key={template.id}
+                            key={journey.journey_id}
                             sx={{
                                 display: 'flex',
                             }}
                         >
-                            <JourneyCard
-                                id={template.id}
-                                title={template.title}
-                                description={template.description}
-                                thumbnail={template.thumbnail}
-                            />
+                            <Card>
+                                <CardActionArea onClick={() => handleJourneyClick(journey.journey_id)}>
+                                    <CardMedia
+                                        component="img"
+                                        height="140"
+                                        image={journey.thumbnail}
+                                        alt={journey.name}
+                                    />
+                                    <CardContent>
+                                        <Typography gutterBottom variant="h6" component="h3">
+                                            {journey.name}
+                                        </Typography>
+                                        <Typography variant="body2" color="text.secondary">
+                                            {journey.description}
+                                        </Typography>
+                                    </CardContent>
+                                </CardActionArea>
+                            </Card>
                         </Grid>
                     ))}
                 </Grid>

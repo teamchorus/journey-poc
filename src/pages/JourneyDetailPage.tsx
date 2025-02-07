@@ -1,84 +1,110 @@
 import React from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
 import {
     Box,
+    Container,
     Typography,
     Button,
-    Card,
-    CardMedia,
+    Paper,
+    Alert,
     Grid,
-    IconButton,
+    Chip
 } from '@mui/material';
+import { useParams, useNavigate } from 'react-router-dom';
+import journeyData from '../config/journeys.json';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { DeploymentForm } from '../components/Journey/DeploymentForm';
-import journeyTemplates from '../config/journeys.json';
 
-export const JourneyDetailPage: React.FC = () => {
+interface Journey {
+    journey_id: string;
+    name: string;
+    description: string;
+    thumbnail: string;
+}
+
+const JourneyDetailPage: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
 
-    const template = journeyTemplates.templates.find(t => t.id === id);
+    const journey = journeyData.journeys.find((j: Journey) => j.journey_id === id);
 
-    if (!template) {
+    if (!journey) {
         return (
-            <Box>
-                <Typography variant="h5">Journey not found</Typography>
+            <Container maxWidth="lg" sx={{ py: 4 }}>
+                <Alert severity="error">Journey template not found</Alert>
                 <Button
-                    variant="contained"
-                    onClick={() => navigate('/')}
+                    startIcon={<ArrowBackIcon />}
+                    onClick={() => navigate('/journeys')}
                     sx={{ mt: 2 }}
                 >
-                    Return Home
+                    Back to Templates
                 </Button>
-            </Box>
+            </Container>
         );
     }
 
-    const handleSuccess = () => {
-        // Show success message and redirect
-        navigate('/', { state: { success: true, message: 'Journey deployed successfully!' } });
-    };
-
     return (
-        <Box>
-            <IconButton
-                onClick={() => navigate('/')}
-                sx={{ mb: 2 }}
-                aria-label="back"
-            >
-                <ArrowBackIcon />
-            </IconButton>
+        <Container maxWidth="lg" sx={{ py: 4 }}>
+            <Box sx={{ mb: 4 }}>
+                <Button
+                    startIcon={<ArrowBackIcon />}
+                    onClick={() => navigate('/journeys')}
+                    sx={{ mb: 2 }}
+                >
+                    Back to Templates
+                </Button>
+                <Typography variant="h2" component="h1" gutterBottom>
+                    {journey.name}
+                </Typography>
+                <Typography variant="body1" color="text.secondary" paragraph>
+                    {journey.description}
+                </Typography>
+            </Box>
 
             <Grid container spacing={4}>
-                <Grid item xs={12} md={6}>
-                    <Card>
-                        <CardMedia
+                <Grid item xs={12} md={8}>
+                    <Paper sx={{ p: 3, mb: 3 }}>
+                        <Typography variant="h6" gutterBottom>
+                            Journey Preview
+                        </Typography>
+                        <Box
                             component="img"
-                            height="300"
-                            image={template.thumbnail}
-                            alt={template.title}
-                            sx={{ objectFit: 'cover' }}
+                            src={journey.thumbnail}
+                            alt={journey.name}
+                            sx={{
+                                width: '100%',
+                                height: 'auto',
+                                borderRadius: 1,
+                                mb: 2
+                            }}
                         />
-                    </Card>
-
-                    <Box sx={{ mt: 3 }}>
-                        <Typography variant="h4" gutterBottom>
-                            {template.title}
-                        </Typography>
-                        <Typography variant="body1" color="text.secondary" paragraph>
-                            {template.description}
-                        </Typography>
-                    </Box>
+                    </Paper>
                 </Grid>
 
-                <Grid item xs={12} md={6}>
-                    <DeploymentForm
-                        journeyId={template.id}
-                        fields={template.fields}
-                        onSuccess={handleSuccess}
-                    />
+                <Grid item xs={12} md={4}>
+                    <Paper sx={{ p: 3 }}>
+                        <Typography variant="h6" gutterBottom>
+                            Actions
+                        </Typography>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            fullWidth
+                            onClick={() => navigate(`/journeys/${id}/deploy`)}
+                            sx={{ mb: 2 }}
+                        >
+                            Deploy Journey
+                        </Button>
+                        <Button
+                            variant="outlined"
+                            fullWidth
+                            onClick={() => navigate(`/journeys/${id}/edit`)}
+                        >
+                            Edit Template
+                        </Button>
+                    </Paper>
                 </Grid>
             </Grid>
-        </Box>
+        </Container>
     );
-}; 
+};
+
+export default JourneyDetailPage; 
