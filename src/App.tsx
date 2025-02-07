@@ -17,15 +17,21 @@ function App() {
             <Router>
                 <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
                     <AppBar position="sticky">
-                        <Toolbar>
+                        <Toolbar
+                            component="a"
+                            href="/"
+                            sx={{
+                                textDecoration: 'none',
+                                color: 'inherit',
+                                cursor: 'pointer'
+                            }}
+                        >
                             <Box
                                 component="img"
                                 src="https://static.www.nfl.com/image/upload/v1554321393/league/nvfr7ogywskqrfaiu38m.svg"
                                 alt="NFL Logo"
                                 sx={{
-                                    height: 40,
-                                    mr: 2,
-                                    filter: 'brightness(0) invert(1)' // Makes the logo white
+                                    height: 40
                                 }}
                             />
                             <Typography variant="h6" component="div">
