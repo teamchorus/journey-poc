@@ -13,22 +13,14 @@ import {
 } from '@mui/material';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getAuthToken, importJourney } from '../services/authService';
-
-const environments = [
-    { value: 'dev', label: 'Development' },
-    { value: 'stage', label: 'Staging' },
-    { value: 'prod', label: 'Production' }
-];
+import { DEPLOYMENT_FORM, DEPLOYMENT_DEFAULTS } from '../config/constant';
 
 const DeploymentFormPage: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
     const [loading, setLoading] = React.useState(false);
     const [formData, setFormData] = React.useState({
-        sourceEnv: 'dev',
-        targetEnv: 'stage',
         segmentationId: '',
-        durationDays: '30',
         description: ''
     });
 
@@ -46,12 +38,12 @@ const DeploymentFormPage: React.FC = () => {
             const authResponse = await getAuthToken();
             
             const importData = {
-                id: "",
-                name: formData.description || "NewDeployment",
-                description: formData.description || "Journey Deployment",
+                id: id || '',
+                name: formData.description || DEPLOYMENT_DEFAULTS.NAME,
+                description: formData.description || DEPLOYMENT_DEFAULTS.DESCRIPTION,
                 destinationSandbox: {
-                    name: "prod",
-                    imsOrgId: ""
+                    name: DEPLOYMENT_DEFAULTS.SANDBOX,
+                    imsOrgId: process.env.REACT_APP_ORG_ID || ''
                 }
             };
 
@@ -75,19 +67,18 @@ const DeploymentFormPage: React.FC = () => {
     return (
         <Container maxWidth="lg" sx={{ py: 4 }}>
             <Typography variant="h2" component="h1" gutterBottom>
-                Deploy Journey
+                {DEPLOYMENT_FORM.TITLE}
             </Typography>
             <Paper sx={{ p: 3, mb: 4 }}>
                 <Grid container spacing={3}>
-                    
                     <Grid item xs={12}>
                         <TextField
                             fullWidth
-                            label="Segmentation ID"
+                            label={DEPLOYMENT_FORM.SEGMENTATION.LABEL}
                             name="segmentationId"
                             value={formData.segmentationId}
                             onChange={handleInputChange}
-                            helperText="Enter the AEP segmentation ID"
+                            helperText={DEPLOYMENT_FORM.SEGMENTATION.HELPER_TEXT}
                         />
                     </Grid>
                     
@@ -96,11 +87,11 @@ const DeploymentFormPage: React.FC = () => {
                             fullWidth
                             multiline
                             rows={4}
-                            label="Deployment Description"
+                            label={DEPLOYMENT_FORM.DESCRIPTION.LABEL}
                             name="description"
                             value={formData.description}
                             onChange={handleInputChange}
-                            helperText="Add any notes or description for this deployment"
+                            helperText={DEPLOYMENT_FORM.DESCRIPTION.HELPER_TEXT}
                         />
                     </Grid>
                 </Grid>
@@ -113,7 +104,7 @@ const DeploymentFormPage: React.FC = () => {
                         disabled={loading}
                         startIcon={loading && <CircularProgress size={20} />}
                     >
-                        {loading ? 'Deploying...' : 'Deploy Journey'}
+                        {loading ? DEPLOYMENT_FORM.BUTTONS.DEPLOYING : DEPLOYMENT_FORM.BUTTONS.DEPLOY}
                     </Button>
                 </Box>
             </Paper>

@@ -9,11 +9,7 @@ import {
     Container,
     useTheme,
     useMediaQuery,
-    CardContent,
-    CardActionArea
 } from '@mui/material';
-import { JourneyCard } from '../components/Journey/JourneyCard';
-import journeyData from '../config/journeys.json';
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 import { useNavigate } from 'react-router-dom';
 
@@ -22,16 +18,10 @@ export const HomePage: React.FC = () => {
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const navigate = useNavigate();
 
-    const handleViewAll = () => {
-        navigate('/journeys');
+    const handleNavigate = (e: React.MouseEvent) => {
+        e.preventDefault();
+        navigate('/journey/listing');
     };
-
-    const handleJourneyClick = (journeyId: string) => {
-        navigate(`/journeys/${journeyId}`);
-    };
-
-    // Take only the first 3 journeys for the featured section
-    const featuredJourneys = journeyData.journeys.slice(0, 3);
 
     return (
         <Box>
@@ -66,7 +56,7 @@ export const HomePage: React.FC = () => {
                         alignItems: 'center',
                     }}
                 >
-                    <Container maxWidth="lg">
+                    <Container maxWidth="lg" onClick={handleNavigate} sx={{ cursor: 'pointer' }}>
                         <Box maxWidth="600px">
                             <Typography
                                 variant="h1"
@@ -107,115 +97,8 @@ export const HomePage: React.FC = () => {
                     </Container>
                 </Box>
             </Box>
-
-            {/* International Series Section */}
-            <Container maxWidth="lg" sx={{ mb: 8 }}>
-                <Typography
-                    variant="h2"
-                    gutterBottom
-                    sx={{
-                        textAlign: 'center',
-                        mb: 4,
-                        fontSize: { xs: '1.75rem', md: '2.25rem' },
-                    }}
-                >
-                    International Series Journeys
-                </Typography>
-                <Typography
-                    variant="body1"
-                    color="text.secondary"
-                    align="center"
-                    paragraph
-                    sx={{ mb: 6, maxWidth: '800px', mx: 'auto' }}
-                >
-                    Deploy targeted fan engagement campaigns for NFL's global events and initiatives.
-                    Customize your journey based on market, venue, and content preferences.
-                </Typography>
-
-                <Grid container spacing={4}>
-                    {journeyData.journeys.map((journey) => (
-                        <Grid
-                            item
-                            xs={12}
-                            sm={6}
-                            md={4}
-                            key={journey.journey_id}
-                            sx={{
-                                display: 'flex',
-                            }}
-                        >
-                            <Card>
-                                <CardActionArea onClick={() => handleJourneyClick(journey.journey_id)}>
-                                    <CardMedia
-                                        component="img"
-                                        height="140"
-                                        image={journey.thumbnail}
-                                        alt={journey.name}
-                                    />
-                                    <CardContent>
-                                        <Typography gutterBottom variant="h6" component="h3">
-                                            {journey.name}
-                                        </Typography>
-                                        <Typography variant="body2" color="text.secondary">
-                                            {journey.description}
-                                        </Typography>
-                                    </CardContent>
-                                </CardActionArea>
-                            </Card>
-                        </Grid>
-                    ))}
-                </Grid>
-            </Container>
-
-            {/* Game Pass Promotion */}
-            <Box
-                sx={{
-                    bgcolor: 'grey.100',
-                    py: 6,
-                    borderTop: '3px solid',
-                    borderColor: 'primary.main',
-                }}
-            >
-                <Container maxWidth="lg">
-                    <Grid container spacing={4} alignItems="center">
-                        <Grid item xs={12} md={6}>
-                            <Typography
-                                variant="h3"
-                                gutterBottom
-                                sx={{ fontSize: { xs: '1.5rem', md: '2rem' } }}
-                            >
-                                NFL Game Pass International
-                            </Typography>
-                            <Typography variant="body1" paragraph>
-                                Enhance your subscribers' experience with personalized content journeys.
-                                From live games to exclusive NFL Network content, deliver the right
-                                message at the right time.
-                            </Typography>
-                            <Button
-                                variant="outlined"
-                                color="primary"
-                                size="large"
-                                endIcon={<ArrowOutwardIcon />}
-                            >
-                                Explore Game Pass Journeys
-                            </Button>
-                        </Grid>
-                        <Grid item xs={12} md={6}>
-                            <Card elevation={0} sx={{ bgcolor: 'transparent' }}>
-                                <CardMedia
-                                    component="img"
-                                    image="https://static.www.nfl.com/image/private/t_editorial_landscape_12_desktop/league/nfl-game-pass-hero"
-                                    alt="NFL Game Pass"
-                                    sx={{
-                                        height: '300px',
-                                        objectFit: 'cover',
-                                    }}
-                                />
-                            </Card>
-                        </Grid>
-                    </Grid>
-                </Container>
-            </Box>
         </Box>
     );
-}; 
+};
+
+export default HomePage; 

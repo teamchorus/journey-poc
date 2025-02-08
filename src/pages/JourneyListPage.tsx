@@ -15,34 +15,14 @@ import {
 } from '@mui/material';
 import { Search as SearchIcon, FilterList as FilterIcon } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
+import journeyData from '../config/Journey_List.json';
 
-// Mock data - replace with actual API call
-const journeyTemplates = [
-    {
-        id: 'nfl-bday-2024',
-        title: 'Fan Birthday Journey',
-        description: 'Automated birthday celebration campaign for NFL fans',
-        thumbnail: 'https://picsum.photos/seed/nfl4/800/400',
-        category: 'Fan Engagement',
-        status: 'Active'
-    },
-    {
-        id: 'gameday-reminder',
-        title: 'Gameday Reminder',
-        description: 'Pre-game notifications and content delivery',
-        thumbnail: 'https://picsum.photos/seed/nfl5/800/400',
-        category: 'Game Operations',
-        status: 'Active'
-    },
-    {
-        id: 'super-bowl-campaign',
-        title: 'Super Bowl Campaign',
-        description: 'Exclusive Super Bowl content and promotions',
-        thumbnail: 'https://picsum.photos/seed/nfl6/800/400',
-        category: 'Events',
-        status: 'Active'
-    }
-];
+interface Journey {
+    journey_id: string;
+    name: string;
+    description: string;
+    thumbnail: string;
+}
 
 const JourneyListPage: React.FC = () => {
     const navigate = useNavigate();
@@ -51,6 +31,11 @@ const JourneyListPage: React.FC = () => {
     const handleJourneyClick = (journeyId: string) => {
         navigate(`/journeys/${journeyId}`);
     };
+
+    const filteredJourneys = journeyData.journeys.filter((journey: Journey) =>
+        journey.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        journey.description.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
     return (
         <Container maxWidth="lg" sx={{ py: 4 }}>
@@ -64,67 +49,56 @@ const JourneyListPage: React.FC = () => {
                 </Typography>
             </Box>
 
-            {/* Search and Filter Section */}
-            <Box sx={{ mb: 4, display: 'flex', gap: 2 }}>
-                <TextField
-                    fullWidth
-                    variant="outlined"
-                    placeholder="Search templates..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    InputProps={{
-                        startAdornment: (
-                            <InputAdornment position="start">
-                                <SearchIcon />
-                            </InputAdornment>
-                        ),
-                    }}
-                />
-                <IconButton
-                    sx={{
-                        border: 1,
-                        borderColor: 'grey.300',
-                        borderRadius: 1
-                    }}
-                >
-                    <FilterIcon />
-                </IconButton>
-            </Box>
-
             {/* Templates Grid */}
             <Grid container spacing={3}>
-                {journeyTemplates.map((template) => (
-                    <Grid item xs={12} sm={6} md={4} key={template.id}>
-                        <Card>
-                            <CardActionArea onClick={() => handleJourneyClick(template.id)}>
+                {filteredJourneys.map((journey: Journey) => (
+                    <Grid item xs={12} sm={6} md={4} key={journey.journey_id}>
+                        <Card 
+                            sx={{ 
+                                height: '100%',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                '&:hover': {
+                                    boxShadow: 6
+                                }
+                            }}
+                        >
+                            <CardActionArea 
+                                onClick={() => handleJourneyClick(journey.journey_id)}
+                                sx={{ flexGrow: 1 }}
+                            >
                                 <CardMedia
                                     component="img"
                                     height="200"
-                                    image={template.thumbnail}
-                                    alt={template.title}
+                                    image={journey.thumbnail}
+                                    alt={journey.name}
                                 />
                                 <CardContent>
-                                    <Box sx={{ mb: 2 }}>
-                                        <Chip
-                                            label={template.category}
-                                            size="small"
-                                            color="primary"
-                                            sx={{ mb: 1 }}
-                                        />
-                                        <Typography variant="h6" component="h3" gutterBottom>
-                                            {template.title}
-                                        </Typography>
-                                        <Typography variant="body2" color="text.secondary">
-                                            {template.description}
-                                        </Typography>
-                                    </Box>
-                                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                        <Chip
-                                            label={template.status}
-                                            size="small"
-                                            color={template.status === 'Active' ? 'success' : 'default'}
-                                        />
-                                    </Box>
+                                    <Typography 
+                                        variant="h6" 
+                                        component="h3" 
+                                        gutterBottom
+                                        sx={{
+                                            display: '-webkit-box',
+                                            overflow: 'hidden',
+                                            WebkitBoxOrient: 'vertical',
+                                            WebkitLineClamp: 2,
+                                        }}
+                                    >
+                                        {journey.name}
+                                    </Typography>
+                                    <Typography 
+                                        variant="body2" 
+                                        color="text.secondary"
+                                        sx={{
+                                            display: '-webkit-box',
+                                            overflow: 'hidden',
+                                            WebkitBoxOrient: 'vertical',
+                                            WebkitLineClamp: 3,
+                                        }}
+                                    >
+                                        {journey.description}
+                                    </Typography>
                                 </CardContent>
                             </CardActionArea>
                         </Card>
